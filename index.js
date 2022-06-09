@@ -1,65 +1,84 @@
 module.exports = {
   env: {
     es6: true,
-    node: true
+    node: true,
   },
+  // todo import organizer
+  plugins: ['import', '@typescript-eslint', 'prettier'],
   extends: [
-    'airbnb-base',
+    // todo - eslint-plugin-jest
+    'airbnb-typescript/base',
     'plugin:@typescript-eslint/recommended',
-    'eslint-config-airbnb-base/rules/best-practices',
-    'eslint-config-airbnb-base/rules/errors',
-    'eslint-config-airbnb-base/rules/node',
-    'eslint-config-airbnb-base/rules/style',
-    'eslint-config-airbnb-base/rules/variables',
-    'eslint-config-airbnb-base/rules/es6'
+    'plugin:prettier/recommended',
   ],
   globals: {
     Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly'
+    SharedArrayBuffer: 'readonly',
   },
   parser: '@typescript-eslint/parser',
-
   parserOptions: {
+    project: './tsconfig.json',
     ecmaVersion: 2018,
     sourceType: 'module',
-    tsconfigRootDir: __dirname
   },
-  plugins: ['@typescript-eslint'],
   rules: {
-    'import/prefer-default-export': 0,
-    'no-console': 1,
-    'function-paren-newline': ['warn', { minItems: 3 }],
-    '@typescript-eslint/ban-ts-comment': 1,
-    '@typescript-eslint/no-use-before-define': 1,
-    '@typescript-eslint/explicit-function-return-type': 1,
-    camelcase: 0,
-    '@typescript-eslint/no-var-requires': 1,
-    'consistent-return': 1,
-    semi: 1,
-    'comma-dangle': 0,
-    'max-len': [
+    'array-callback-return': 'error',
+    // Enforce curly braces even for one liners.
+    curly: ['error', 'all'],
+
+    'no-console': 'warn',
+
+    'no-use-before-define': 'off',
+    '@typescript-eslint/no-use-before-define': ['error', 'nofunc'],
+
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': ['error'],
+
+    // this is noisy while refactoring.
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': [
       'error',
       {
-        code: 120,
-        ignoreComments: true,
-        ignoreTrailingComments: true,
-        ignoreUrls: true,
-        ignoreStrings: true,
-        ignoreTemplateLiterals: true
-      }
+        // Allow `let { ignored, ...rest} = foo`.
+        ignoreRestSiblings: true,
+      },
     ],
-    'import/no-extraneous-dependencies': 1,
+
+    // we're all grown ups here...
+    'no-empty-function': 'off',
+    '@typescript-eslint/no-empty-function': 'off',
+
+    'consistent-return': 'error',
+    'constructor-super': 'error',
+
+    'default-case': 'error',
+    'default-case-last': 'error',
+
+    'dot-notation': 'error',
+    'func-names': 'error',
+
+    'max-params': ['error', 7],
+    'max-statements-per-line': ['error', { max: 1 }],
+
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: ['**/*.stories.*', '**/.storybook/**/*.*'],
+        peerDependencies: true,
+      },
+    ],
     'import/order': 1,
     'object-shorthand': 1,
     'operator-linebreak': 1,
+    'no-constant-condition': 'error',
     'no-return-await': 1,
     'no-useless-escape': 1,
     'no-useless-return': 1,
-    'require-await': 1,
-    'no-unused-vars': 1,
-    'no-shadow': 0,
-    'no-nested-ternary': 0,
-    '@typescript-eslint/no-shadow': 1,
+    'no-await-in-loop': 'error',
+    'require-await': 'error',
+    'no-nested-ternary': 'off',
+    'no-compare-neg-zero': 'error',
+    'no-cond-assign': 'error',
     'import/extensions': [
       'error',
       'ignorePackages',
@@ -67,17 +86,13 @@ module.exports = {
         js: 'never',
         jsx: 'never',
         ts: 'never',
-        tsx: 'never'
-      }
-    ]
+        tsx: 'never',
+      },
+    ],
   },
   settings: {
     'import/resolver': {
-      node: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
-        moduleDirectory: ['node_modules', 'src/']
-      },
-      typescript: {}
-    }
-  }
+      typescript: {},
+    },
+  },
 };
