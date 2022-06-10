@@ -4,10 +4,11 @@ module.exports = {
   },
   plugins: ['react', 'react-hooks'],
   extends: [
-    // todo add later
-    // 'plugin:jsx-a11y/recommended',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
+    // todo add later
+    // 'plugin:jsx-a11y/recommended',
+    // './unicorn.js',
     // it includes prettier, and it needs to be the last.
     './index.js',
   ],
