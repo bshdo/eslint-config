@@ -3,92 +3,48 @@ module.exports = {
     es6: true,
     node: true,
   },
-  // todo import organizer
-  plugins: ['import', '@typescript-eslint', 'prettier'],
+  plugins: [
+    // runs Prettier as an ESLint rule and reports differences as individual ESLint issues.
+    'prettier',
+  ],
   extends: [
     // todo - eslint-plugin-jest
     'airbnb-base',
     'airbnb-typescript/base',
-    'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
   ],
-  globals: {
-    Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly',
-  },
-  parser: '@typescript-eslint/parser',
   parserOptions: {
     project: './tsconfig.json',
     ecmaVersion: 2018,
     sourceType: 'module',
   },
   rules: {
-    'array-callback-return': 'error',
-    // Enforce curly braces even for one liners.
-    curly: ['error', 'all'],
+    'prettier/prettier': 'error',
+    'max-params': ['warn', 5],
 
     'no-console': 'warn',
+    'object-shorthand': 'warn',
+    'no-nested-ternary': 'off',
+    'no-restricted-exports': 'off',
 
-    'no-use-before-define': 'off',
-    '@typescript-eslint/no-use-before-define': ['error', 'nofunc'],
-
-    'no-shadow': 'off',
-    '@typescript-eslint/no-shadow': ['error'],
-
-    // this is noisy while refactoring.
-    'no-unused-vars': 'off',
+    '@typescript-eslint/comma-dangle': 'off',
     '@typescript-eslint/no-unused-vars': [
-      'error',
+      'warn',
       {
         // Allow `let { ignored, ...rest} = foo`.
         ignoreRestSiblings: true,
       },
     ],
+    '@typescript-eslint/no-use-before-define': ['error', {
+      'functions': false,
+    }],
 
-    // we're all grown ups here...
-    'no-empty-function': 'off',
-    '@typescript-eslint/no-empty-function': 'off',
-
-    'consistent-return': 'error',
-    'constructor-super': 'error',
-
-    'default-case': 'error',
-    'default-case-last': 'error',
-
-    'dot-notation': 'error',
-    'func-names': 'error',
-
-    'max-params': ['error', 7],
-    'max-statements-per-line': ['error', { max: 1 }],
-
+    'import/prefer-default-export': ['off'],
     'import/no-extraneous-dependencies': [
       'error',
       {
         devDependencies: ['**/*.stories.*', '**/.storybook/**/*.*'],
         peerDependencies: true,
-      },
-    ],
-    'import/order': 'error',
-    'import/prefer-default-export': ['off'],
-    'object-shorthand': 'warn',
-    'no-constant-condition': 'error',
-    'no-return-await': 'warn',
-    'no-restricted-exports': 'off',
-    'no-useless-escape': 'warn',
-    'no-useless-return': 'warn',
-    'no-await-in-loop': 'error',
-    'require-await': 'error',
-    'no-nested-ternary': 'off',
-    'no-compare-neg-zero': 'error',
-    'no-cond-assign': 'error',
-    'import/extensions': [
-      'error',
-      'ignorePackages',
-      {
-        js: 'never',
-        jsx: 'never',
-        ts: 'never',
-        tsx: 'never',
       },
     ],
   },

@@ -2,45 +2,22 @@ module.exports = {
   env: {
     browser: true,
   },
-  plugins: ['react', 'react-hooks'],
-  extends: [
-    'plugin:react/recommended',
-    'plugin:react-hooks/recommended',
+  plugins: ['react', 'react-hooks', 'tailwindcss'],
+  extends: ['./unicorn.js', './index.js'].map(require.resolve).concat([
     // todo add later
     // 'plugin:jsx-a11y/recommended',
-    // './unicorn.js',
-    // it includes prettier, and it needs to be the last.
-    './index.js',
-  ],
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:tailwindcss/recommended',
+  ]),
   rules: {
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'error',
+    'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/button-has-type': 'off',
-    'react/prefer-stateless-function': 'error',
-    'react/sort-comp': [
-      'error',
-      {
-        order: [
-          'displayName',
-          'statics',
-          'static-methods',
-          'defaultProps',
-          'state',
-          'constructor',
-          'render',
-          '/^(_)?render.+$/', // any auxiliary render methods
-          'componentWillMount',
-          'componentDidMount',
-          'componentWillReceiveProps',
-          'shouldComponentUpdate',
-          'componentWillUpdate',
-          'componentDidUpdate',
-          'componentWillUnmount',
-          '/^on[A-Z].+$/', // event handlers
-          'everything-else',
-          '/^_.+$/', // private methods
-        ],
-      },
-    ],
+    'tailwindcss/no-custom-classname': 'off',
+    'tailwindcss/no-contradicting-classname': 'error',
   },
   overrides: [
     {

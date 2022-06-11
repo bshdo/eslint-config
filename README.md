@@ -7,18 +7,19 @@ yarn add -D @bshdo/eslint-config @rushstack/eslint-patch eslint prettier
 Create `.eslintrc.js` file with following code:
 
 ```javascript
+// This is a workaround for: https://github.com/eslint/eslint/issues/3458
 require('@rushstack/eslint-patch/modern-module-resolution');
 
 module.exports = {
   // use @bshdo/eslint-config/react for React/NextJs projects
-  extends: ['@bshdo/eslint-config'] 
+  extends: ['@bshdo/eslint-config'],
 };
 ```
 
 Create a file called `.prettierrc.js`
 
 ```javascript
-module.exports = require('@bshdo/eslint-config/prettier-config');
+module.exports = require('@bshdo/eslint-config/prettier.config');
 ```
 
 Add the following script to your package.json
