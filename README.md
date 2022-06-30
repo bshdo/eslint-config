@@ -16,6 +16,20 @@ module.exports = {
 };
 ```
 
+### For monorepos, use this configuration
+```javascript
+require('@rushstack/eslint-patch/modern-module-resolution');
+
+module.exports = {
+  root: true,
+  extends: ['@bshdo/eslint-config'],
+  rules: {
+    "import/no-extraneous-dependencies": 'off'
+  }
+};
+
+```
+
 Create a file called `.prettierrc.js`
 
 ```javascript
